@@ -17,7 +17,7 @@ namespace TreehouseDefense
         public bool IsGameRunning { get; set; } = false;
         public Difficulty Difficulty { get; private set; } = 0;
         public Map GameMap { get; private set; }
-        public Path MapPath { get; private set; }
+        public MonsterPath MapPath { get; private set; }
         public Tower[] Towers { get; set; }
         public Level[] Levels { get; set; }
         public List<Highscore> Highscores { get; set; }
@@ -144,7 +144,7 @@ namespace TreehouseDefense
                 else
                     mapLocs[i] = new MapLocation(i, startPoint, GameMap);
             }
-            MapPath = new Path(mapLocs);
+            MapPath = new MonsterPath(mapLocs);
         }
 
         private void GenerateLevels()

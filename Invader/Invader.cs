@@ -2,7 +2,7 @@ namespace TreehouseDefense
 {
     abstract class Invader : IInvader
     {
-        private readonly Path _path;
+        private readonly MonsterPath _path;
         private int _pathStep = 0;
         
         protected virtual int StepSize { get; } = 1;
@@ -18,7 +18,7 @@ namespace TreehouseDefense
         
         public bool IsActive => !(IsNeutralized || HasScored);
         
-        public Invader(Path path)
+        public Invader(MonsterPath path)
         {
             _path = path;
         }

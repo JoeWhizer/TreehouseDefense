@@ -4,7 +4,7 @@ namespace TreehouseDefense
     {
       public override int Health { get; protected set; } = 3;
       
-      public StrongInvader(Path path) : base(path) {}
+      public StrongInvader(MonsterPath path) : base(path) {}
       
       
     }

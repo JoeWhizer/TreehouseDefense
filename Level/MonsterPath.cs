@@ -1,12 +1,12 @@
 namespace TreehouseDefense
 {
-    class Path
+    class MonsterPath
     {
         private readonly MapLocation[] _path;
         
         public int Length => _path.Length;
         
-        public Path(MapLocation[] path)
+        public MonsterPath(MapLocation[] path)
         {
             _path = path;
         }

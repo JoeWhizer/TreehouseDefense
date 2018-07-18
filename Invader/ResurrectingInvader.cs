@@ -15,7 +15,7 @@ namespace TreehouseDefense
         
         public bool IsActive => !(IsNeutralized || HasScored);
 
-        public ResurrectingInvader(Path path)
+        public ResurrectingInvader(MonsterPath path)
         {
             _incarnation1 = new BasicInvader(path);
             _incarnation2 = new StrongInvader(path);

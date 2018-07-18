@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using System.Globalization;
+using System.Collections.Generic;
 
 namespace TreehouseDefense
 {
-    class Highscore
+    public class Highscore
     {
         public int Score { get; set; }
         public int Name { get; set; }
@@ -21,7 +19,22 @@ namespace TreehouseDefense
         public void SaveHighscore(List<Highscore> highscores)
         {
             string currentDirectory = Directory.GetCurrentDirectory();
-
+            string filePath = Path.Combine(currentDirectory, FileName);
+            using (StreamWriter file = new StreamWriter(filePath))
+            {
+                try
+                {
+                    highscores.ForEach(file.WriteLine);
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Error writing to File!");
+                }
+                finally
+                {
+                    file.Close();
+                }
+            }
         }
 
         public List<Highscore> LoadHighscore()

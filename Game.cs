@@ -1,10 +1,11 @@
 using System;
+using System.IO;
 
 namespace TreehouseDefense
 {
     class Game
     {
-        public static void Main()
+        static void Main(string[] args)
         {
             GameController gameController = new GameController();
 
@@ -19,7 +20,7 @@ namespace TreehouseDefense
             Map map = new Map(8, 5);
             try
             {
-                Path path = new Path(
+                MonsterPath path = new MonsterPath(
                     new [] {
                         new MapLocation(0, 2, map),
                         new MapLocation(1, 2, map),
