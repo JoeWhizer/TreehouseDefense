@@ -42,7 +42,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameController.cs" />
+    <Compile Include="Highscore.cs" />
+    <Compile Include="Invader\BasicInvader.cs" />
+    <Compile Include="Invader\FastInvader.cs" />
+    <Compile Include="Invader\IInvader.cs" />
+    <Compile Include="Invader\Invader.cs" />
+    <Compile Include="Invader\ResurrectingInvader.cs" />
+    <Compile Include="Invader\ShieldedInvader.cs" />
+    <Compile Include="Invader\StrongInvader.cs" />
+    <Compile Include="Level\Level.cs" />
+    <Compile Include="Level\Map.cs" />
+    <Compile Include="Level\MapLocation.cs" />
+    <Compile Include="Level\Path.cs" />
+    <Compile Include="Level\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Random.cs" />
+    <Compile Include="Tower\AdvancedTower.cs" />
+    <Compile Include="Tower\PowerTower.cs" />
+    <Compile Include="Tower\PreciseTower.cs" />
+    <Compile Include="Tower\Tower.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
