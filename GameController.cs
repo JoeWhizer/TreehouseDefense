@@ -85,6 +85,7 @@ namespace TreehouseDefense
                 Console.WriteLine("3 - Medium");
                 Console.WriteLine("4 - Hard");
                 Console.WriteLine("5 - Brutal");
+                Console.Write(": ");
                 var input = Console.ReadKey();
                 switch (input.Key)
                 {
