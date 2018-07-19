@@ -1,14 +1,11 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
 
 namespace TreehouseDefense
 {
-    public class Highscore
+    public class Highscore : IComparable<Highscore>
     {
         public int Score { get; set; }
-        public int Name { get; set; }
-        private string FileName { get; set; } = "Highscore.dat";
+        public string Name { get; set; }
 
         public bool CheckForHighscore(int score)
         {
@@ -16,34 +13,16 @@ namespace TreehouseDefense
             return false;
         }
 
-        public void SaveHighscore(List<Highscore> highscores)
+        public int CompareTo(Highscore that)
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string filePath = Path.Combine(currentDirectory, FileName);
-            using (StreamWriter file = new StreamWriter(filePath))
+            int result = this.Score.CompareTo(that.Score) * -1;
+
+            if (result == 0)
             {
-                try
-                {
-                    highscores.ForEach(file.WriteLine);
-                }
-                catch (System.Exception)
-                {
-                    Console.WriteLine("Error writing to File!");
-                }
-                finally
-                {
-                    file.Close();
-                }
+                result = this.Name.CompareTo(that.Name);
             }
+
+            return result;
         }
-
-        public List<Highscore> LoadHighscore()
-        {
-            List<Highscore> loadedHighscore = new List<Highscore>();
-            
-
-            return loadedHighscore;
-        }
-
     }
 }

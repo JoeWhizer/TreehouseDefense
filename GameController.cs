@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace TreehouseDefense
@@ -21,6 +22,7 @@ namespace TreehouseDefense
         public Tower[] Towers { get; set; }
         public Level[] Levels { get; set; }
         public List<Highscore> Highscores { get; set; }
+        private string HighscoreFileName { get; set; } = "Highscore.dat";
 
         public void PrintWelcome()
         {
@@ -157,6 +159,42 @@ namespace TreehouseDefense
 
         public void StartGame()
         {
+        }
+
+        public void SaveHighscore()
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string filePath = Path.Combine(currentDirectory, HighscoreFileName);
+
+            Highscores.Sort();
+            using (StreamWriter file = new StreamWriter(filePath))
+            {
+                try
+                {
+                    foreach (var highscore in Highscores)
+                    {
+                        file.WriteLine(highscore.Score + "§" + highscore.Name);
+                    }
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Error writing to File!");
+                }
+                finally
+                {
+                    file.Close();
+                }
+            }
+            Console.WriteLine("Highscore was stored in:");
+            Console.WriteLine(filePath);
+        }
+
+        public List<Highscore> LoadHighscore()
+        {
+            List<Highscore> loadedHighscore = new List<Highscore>();
+
+
+            return loadedHighscore;
         }
 
     }
