@@ -16,6 +16,7 @@ namespace TreehouseDefense
     class GameController
     {
         static int _screenWidth = 52;
+        static double _passString = 0.4357654324;
 
         private string HighscoreFileName { get; set; } = "Highscore.dat";
         public bool IsGameRunning { get; set; } = false;
@@ -197,7 +198,7 @@ namespace TreehouseDefense
                 {
                     foreach (var highscore in Highscores)
                     {
-                        writer.WriteLine(highscore.Score + "§" + highscore.Name);
+                        writer.WriteLine(EncryptString.Encrypt(highscore.Score + "§" + highscore.Name, _passString.ToString()));
                     }
                 }
                 catch (System.Exception)
@@ -227,7 +228,8 @@ namespace TreehouseDefense
                 {
                     while ((line = reader.ReadLine()) != null)
                     {
-                        string[] entries = line.Split('§');
+                        string decryptedLines = EncryptString.Decrypt(line, _passString.ToString());
+                        string[] entries = decryptedLines.Split('§');
                         loadedHighscores.Add(new Highscore { Score = int.Parse(entries[0]), Name = entries[1] });
                     }
                 }
