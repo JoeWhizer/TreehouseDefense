@@ -15,6 +15,8 @@ namespace TreehouseDefense
 
     class GameController
     {
+        static int _screenWidth = 52;
+
         private string HighscoreFileName { get; set; } = "Highscore.dat";
         public bool IsGameRunning { get; set; } = false;
         public Difficulty Difficulty { get; private set; } = 0;
@@ -45,13 +47,16 @@ namespace TreehouseDefense
         private void PrintHighscore()
         {
             LoadHighscore();
+            
+
             if(Highscores.Count > 0)
             {
                 foreach (var highscore in Highscores)
                 {
-                    Console.Write("** " + highscore.Score + " - " + highscore.Name);
-                    int stringLength = highscore.Score.ToString().Length + 8 + highscore.Name.Length;
-                    for (int i = 0; i < (52 - stringLength); i++)
+                    // Total number of chars before and between Score and Name: 15
+                    Console.Write("**        " + highscore.Score + " - " + highscore.Name);
+                    int stringLength = highscore.Score.ToString().Length + 15 + highscore.Name.Length;
+                    for (int i = 0; i < (_screenWidth - stringLength); i++)
                     {
                         Console.Write(" ");
                     }
