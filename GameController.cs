@@ -15,6 +15,7 @@ namespace TreehouseDefense
 
     class GameController
     {
+        private string HighscoreFileName { get; set; } = "Highscore.dat";
         public bool IsGameRunning { get; set; } = false;
         public Difficulty Difficulty { get; private set; } = 0;
         public Map GameMap { get; private set; }
@@ -22,23 +23,41 @@ namespace TreehouseDefense
         public Tower[] Towers { get; set; }
         public Level[] Levels { get; set; }
         public List<Highscore> Highscores { get; set; }
-        private string HighscoreFileName { get; set; } = "Highscore.dat";
+        public int currentScore { get; set; }
 
         public void PrintWelcome()
         {
-            // TODO - Implement Highscore
             Console.WriteLine("****************************************************");
             Console.WriteLine("**          Welcome to TreehouseDefense           **");
             Console.WriteLine("****************************************************");
             Console.WriteLine("**               H I G H S C O R E                **");
-            Console.WriteLine("**             (not yet implemented)              **");
-            Console.WriteLine("**  1) ...... - xx Invaders - xx Level            **");
-            Console.WriteLine("**  2) ...... - xx Invaders - xx Level            **");
-            Console.WriteLine("**  3) ...... - xx Invaders - xx Level            **");
+            Console.WriteLine("**                                                **");
+
+            PrintHighscore();
+
+            Console.WriteLine("**                                                **");
             Console.WriteLine("****************************************************");
             Console.WriteLine("**       Please press any key to continue...      **");
             Console.WriteLine("****************************************************");
             Console.ReadKey();
+        }
+
+        private void PrintHighscore()
+        {
+            LoadHighscore();
+            if(Highscores.Count > 0)
+            {
+                foreach (var highscore in Highscores)
+                {
+                    Console.Write("** " + highscore.Score + " - " + highscore.Name);
+                    int stringLength = highscore.Score.ToString().Length + 8 + highscore.Name.Length;
+                    for (int i = 0; i < (52 - stringLength); i++)
+                    {
+                        Console.Write(" ");
+                    }
+                    Console.WriteLine("**");
+                }
+            }
         }
 
         public void SetDifficulty()
@@ -192,6 +211,9 @@ namespace TreehouseDefense
             List<Highscore> loadedHighscores = new List<Highscore>();
             string currentDirectory = Directory.GetCurrentDirectory();
             string filePath = Path.Combine(currentDirectory, HighscoreFileName);
+
+            if (!File.Exists(filePath))
+                return;
 
             string line;
             using (StreamReader reader = new StreamReader(filePath))
