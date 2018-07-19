@@ -167,13 +167,13 @@ namespace TreehouseDefense
             string filePath = Path.Combine(currentDirectory, HighscoreFileName);
 
             Highscores.Sort();
-            using (StreamWriter file = new StreamWriter(filePath))
+            using (StreamWriter writer = new StreamWriter(filePath))
             {
                 try
                 {
                     foreach (var highscore in Highscores)
                     {
-                        file.WriteLine(highscore.Score + "§" + highscore.Name);
+                        writer.WriteLine(highscore.Score + "§" + highscore.Name);
                     }
                 }
                 catch (System.Exception)
@@ -182,19 +182,40 @@ namespace TreehouseDefense
                 }
                 finally
                 {
-                    file.Close();
+                    writer.Close();
                 }
             }
-            Console.WriteLine("Highscore was stored in:");
-            Console.WriteLine(filePath);
         }
 
-        public List<Highscore> LoadHighscore()
+        public void LoadHighscore()
         {
-            List<Highscore> loadedHighscore = new List<Highscore>();
+            List<Highscore> loadedHighscores = new List<Highscore>();
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string filePath = Path.Combine(currentDirectory, HighscoreFileName);
 
+            string line;
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                try
+                {
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] entries = line.Split('§');
+                        loadedHighscores.Add(new Highscore { Score = int.Parse(entries[0]), Name = entries[1] });
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine("Error  reading file!");
+                    Console.WriteLine(ex);
+                }
+                finally
+                {
+                    reader.Close();
+                }
+            }
 
-            return loadedHighscore;
+            this.Highscores = loadedHighscores;
         }
 
     }
