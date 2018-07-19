@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TreehouseDefense
 {
@@ -7,10 +8,13 @@ namespace TreehouseDefense
         public int Score { get; set; }
         public string Name { get; set; }
 
-        public bool CheckForHighscore(int score)
+        public bool CheckForHighscore(List<Highscore> highscoreList, int score)
         {
-
-            return false;
+            highscoreList.Sort();
+            if (highscoreList[0].Score < score)
+                return true;
+            else
+                return false;
         }
 
         public int CompareTo(Highscore that)
