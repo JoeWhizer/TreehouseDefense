@@ -6,11 +6,11 @@ namespace TreehouseDefense
 {
     public enum Difficulty
     {
-        VeryEasy, // Mapsize:  5,10 - Intruders: 5 - Towers 2 - Levels 5
-        Easy,     // Mapsize:  8,14 - Intruders: 8 - Towers 4 - Levels 8
-        Medium,   // Mapsize: 12,20 - Intruders: 12 - Towers 6 - Levels 11
-        Hard,     // Mapsize: 16,28 - Intruders: 15 - Towers 8 - Levels 15
-        Brutal    // Mapsize: 25,50 - Intruders: 25 - Towers 10 - Levels 25
+        VeryEasy, // Mapsize: 10,5  - Intruders: 5  - Towers 2 - Levels 5
+        Easy,     // Mapsize: 12,8  - Intruders: 8  - Towers 3 - Levels 8
+        Medium,   // Mapsize: 14,10 - Intruders: 12 - Towers 4 - Levels 11
+        Hard,     // Mapsize: 16,12 - Intruders: 15 - Towers 6 - Levels 15
+        Brutal    // Mapsize: 20,18 - Intruders: 25 - Towers 8 - Levels 25
     }
 
     class GameController
@@ -130,19 +130,19 @@ namespace TreehouseDefense
             switch (Difficulty)
             {
                 case Difficulty.VeryEasy:
-                    GameMap.InitMap(5, 10);
+                    GameMap.InitMap(10, 5);
                     break;
                 case Difficulty.Easy:
-                    GameMap.InitMap(8, 14);
+                    GameMap.InitMap(12, 8);
                     break;
                 case Difficulty.Medium:
-                    GameMap.InitMap(12, 20);
+                    GameMap.InitMap(14, 10);
                     break;
                 case Difficulty.Hard:
-                    GameMap.InitMap(16, 28);
+                    GameMap.InitMap(16, 12);
                     break;
                 case Difficulty.Brutal:
-                    GameMap.InitMap(25, 50);
+                    GameMap.InitMap(20, 18);
                     break;
             }
         }
@@ -184,11 +184,45 @@ namespace TreehouseDefense
         public void AskToPlaceTowers()
         {
             // TODO: Print MonsterPath and available tower spots
+            PrintMapToScreen();
+
+            Console.ReadKey();
 
             // TODO: Show list of available towers and amount to place
 
             // TODO: Ask player to choose type of tower and point to place
 
+            GenerateInvaderAndLevels();
+        }
+
+        private void PrintMapToScreen()
+        {
+            Console.Clear();
+            int x = 0;
+            for (int y = 0; y < GameMap.Height + 1; y++)
+            {
+                // y-coordinates
+                if (y < 10) Console.Write(" " + y + "  "); else Console.Write(y + "  ");
+
+                for (x = 0; x < GameMap.Width; x++)
+                {
+                    if (y == 0)
+                    {   // x-coordinates
+                        if (x < 9 && x > 0) Console.Write(" " + (x + 1) + "  "); else Console.Write((x + 1) + "  ");
+                        continue;
+                    }
+
+                    if (MapPath.IsOnPath(new MapLocation(x, y - 1, GameMap)))
+                    {
+                        Console.Write("X   ");
+                    }
+                    else
+                    {
+                        Console.Write("o   ");
+                    }
+                }
+                Console.WriteLine();
+            }
         }
 
         private void GenerateInvaderAndLevels()

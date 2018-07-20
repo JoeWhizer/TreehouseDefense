@@ -11,7 +11,7 @@ namespace TreehouseDefense
 
             gameController.PrintWelcome();
             gameController.SetDifficulty();
-
+            gameController.AskToPlaceTowers();
  
             Map map = new Map(8, 5);
             try
