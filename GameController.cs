@@ -29,7 +29,7 @@ namespace TreehouseDefense
         public Map GameMap { get; private set; }
         public MonsterPath MapPath { get; private set; }
         public Invader[] Invaders { get; set; }
-        public Tower[] Towers { get; set; }
+        public List<Tower> Towers { get; set; }
         public Level[] Levels { get; set; }
         public List<Highscore> Highscores { get; set; }
         public int CurrentScore { get; set; }
@@ -221,7 +221,7 @@ namespace TreehouseDefense
                     {
                         if (Towers != null)
                         {
-                            for (int t = 0; t < Towers.Length; t++)
+                            for (int t = 0; t < Towers.Count; t++)
                             {
                                 if(Towers[t].IsOnMap(new MapLocation(x, y -1, GameMap)))
                                 {
@@ -257,6 +257,9 @@ namespace TreehouseDefense
             Console.WriteLine("You can place towers beside the path (X)");
             Console.Write(": ");
             string inputCoordinates = Console.ReadLine();
+
+            // Add chosen tower to GameController
+            
         }
 
         private void GenerateInvaderAndLevels()
