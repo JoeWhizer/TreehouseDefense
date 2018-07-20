@@ -19,7 +19,7 @@ namespace TreehouseDefense
         static int _screenWidth = 52;                         // Screen width of welcome and highscore screen
         static double _passString = 0.4357654324;             // passPhrase used to encrypt highscore file
         static int[] _amountInvaders = { 5, 8, 12, 15, 25 };  // Amount of invaders relevant to the chosen difficulty
-        static int[] _amountTowers = { 2, 4, 6, 8, 10 };      // Amount of towers relevant to the chosen difficulty
+        static int[] _amountTowers = { 2, 3, 4, 5, 8 };      // Amount of towers relevant to the chosen difficulty
         static int[] _amountLevels = { 5, 8, 11, 15, 25 };    // Amount of levels relevant to the chosen difficulty
         static string _highscoreFileName = "Highscore.dat";   // Filename in game directory to save highscore
         
@@ -217,9 +217,25 @@ namespace TreehouseDefense
                     {
                         Console.Write("X   ");
                     }
-                    else
+                    else 
                     {
-                        Console.Write("o   ");
+                        if (Towers != null)
+                        {
+                            for (int t = 0; t < Towers.Length; t++)
+                            {
+                                if(Towers[t].IsOnMap(new MapLocation(x, y -1, GameMap)))
+                                {
+                                    Console.Write("T   ");
+                                }
+                                else
+                                {
+                                    Console.Write("o   ");
+                                    continue;
+                                }
+                            }
+                        }
+                        else
+                            Console.Write("o   ");
                     }
                 }
                 Console.WriteLine();
@@ -229,7 +245,18 @@ namespace TreehouseDefense
 
         private void ShowAvailableTowers()
         {
-            
+            Console.WriteLine("Please choose a tower to place:");
+            Console.WriteLine("1 - Basic Tower ({0})", (_amountTowers[(int)Difficulty] / 1));
+            Console.WriteLine("2 - Advanced Tower ({0})", (_amountTowers[(int)Difficulty] / 2));
+            Console.WriteLine("3 - Precise Tower ({0})", (_amountTowers[(int)Difficulty] / 2));
+            Console.WriteLine("4 - Power Tower ({0})", (_amountTowers[(int)Difficulty] / 4));
+            Console.Write(": ");
+            var input = Console.ReadKey();
+            Console.WriteLine();
+            Console.WriteLine("Enter the coordinates (x,y) to place the tower");
+            Console.WriteLine("You can place towers beside the path (X)");
+            Console.Write(": ");
+            string inputCoordinates = Console.ReadLine();
         }
 
         private void GenerateInvaderAndLevels()
