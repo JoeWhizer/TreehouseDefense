@@ -6,11 +6,11 @@ namespace TreehouseDefense
 {
     public enum Difficulty
     {
-        VeryEasy, // Mapsize: 10,5  - Intruders: 5  - Towers 2 - Levels 5   - Basic only
-        Easy,     // Mapsize: 12,8  - Intruders: 8  - Towers 3 - Levels 8   - + Advanced Tower (2)
-        Medium,   // Mapsize: 14,10 - Intruders: 12 - Towers 4 - Levels 11  - + Precise Tower (2)
-        Hard,     // Mapsize: 16,12 - Intruders: 15 - Towers 6 - Levels 15  - + Power Tower (4)
-        Brutal    // Mapsize: 20,18 - Intruders: 25 - Towers 8 - Levels 25
+        VeryEasy, // Mapsize: 10,5  - Intruders: 5-10  - Towers 2-3  - Levels 5   - Basic only
+        Easy,     // Mapsize: 12,8  - Intruders: 8-16  - Towers 3-4  - Levels 8   - + Advanced Tower (2)
+        Medium,   // Mapsize: 14,10 - Intruders: 12-23 - Towers 4-6  - Levels 11  - + Precise Tower (2)
+        Hard,     // Mapsize: 16,12 - Intruders: 15-30 - Towers 6-8  - Levels 15  - + Power Tower (4)
+        Brutal    // Mapsize: 20,18 - Intruders: 25-50 - Towers 8-12 - Levels 25
     }
 
     class GameController
