@@ -7,7 +7,8 @@ namespace TreehouseDefense
         protected virtual int Range { get; } = 1;
         protected virtual int Power { get; } = 1;
         protected virtual double Accuracy { get; } = .75;
-        
+        protected virtual int Cost { get; } = 1;
+
         private readonly MapLocation _location;
         
         public Tower(MapLocation location)

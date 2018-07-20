@@ -6,10 +6,10 @@ namespace TreehouseDefense
 {
     public enum Difficulty
     {
-        VeryEasy, // Mapsize: 10,5  - Intruders: 5  - Towers 2 - Levels 5
-        Easy,     // Mapsize: 12,8  - Intruders: 8  - Towers 3 - Levels 8
-        Medium,   // Mapsize: 14,10 - Intruders: 12 - Towers 4 - Levels 11
-        Hard,     // Mapsize: 16,12 - Intruders: 15 - Towers 6 - Levels 15
+        VeryEasy, // Mapsize: 10,5  - Intruders: 5  - Towers 2 - Levels 5   - Basic only
+        Easy,     // Mapsize: 12,8  - Intruders: 8  - Towers 3 - Levels 8   - + Advanced Tower (2)
+        Medium,   // Mapsize: 14,10 - Intruders: 12 - Towers 4 - Levels 11  - + Precise Tower (2)
+        Hard,     // Mapsize: 16,12 - Intruders: 15 - Towers 6 - Levels 15  - + Power Tower (4)
         Brutal    // Mapsize: 20,18 - Intruders: 25 - Towers 8 - Levels 25
     }
 
@@ -186,11 +186,12 @@ namespace TreehouseDefense
             // TODO: Print MonsterPath and available tower spots
             PrintMapToScreen();
 
-            Console.ReadKey();
-
             // TODO: Show list of available towers and amount to place
+            ShowAvailableTowers();
 
             // TODO: Ask player to choose type of tower and point to place
+
+            Console.ReadKey();
 
             GenerateInvaderAndLevels();
         }
@@ -223,6 +224,12 @@ namespace TreehouseDefense
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
+        }
+
+        private void ShowAvailableTowers()
+        {
+            
         }
 
         private void GenerateInvaderAndLevels()
