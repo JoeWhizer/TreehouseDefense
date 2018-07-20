@@ -15,18 +15,24 @@ namespace TreehouseDefense
 
     class GameController
     {
-        static int _screenWidth = 52;
-        static double _passString = 0.4357654324;
-
-        private string HighscoreFileName { get; set; } = "Highscore.dat";
+        // Object constants
+        static int _screenWidth = 52;                         // Screen width of welcome and highscore screen
+        static double _passString = 0.4357654324;             // passPhrase used to encrypt highscore file
+        static int[] _amountInvaders = { 5, 8, 12, 15, 25 };  // Amount of invaders relevant to the chosen difficulty
+        static int[] _amountTowers = { 2, 4, 6, 8, 10 };      // Amount of towers relevant to the chosen difficulty
+        static int[] _amountLevels = { 5, 8, 11, 15, 25 };    // Amount of levels relevant to the chosen difficulty
+        static string _highscoreFileName = "Highscore.dat";   // Filename in game directory to save highscore
+        
+        // Properties
         public bool IsGameRunning { get; set; } = false;
         public Difficulty Difficulty { get; private set; } = 0;
         public Map GameMap { get; private set; }
         public MonsterPath MapPath { get; private set; }
+        public Invader[] Invaders { get; set; }
         public Tower[] Towers { get; set; }
         public Level[] Levels { get; set; }
         public List<Highscore> Highscores { get; set; }
-        public int currentScore { get; set; }
+        public int CurrentScore { get; set; }
 
         public void PrintWelcome()
         {
@@ -175,22 +181,44 @@ namespace TreehouseDefense
             MapPath = new MonsterPath(mapLocs);
         }
 
-        private void GenerateLevels()
-        {
-        }
-
         public void AskToPlaceTowers()
         {
+            // TODO: Print MonsterPath and available tower spots
+
+            // TODO: Show list of available towers and amount to place
+
+            // TODO: Ask player to choose type of tower and point to place
+
         }
 
+        private void GenerateInvaderAndLevels()
+        {
+            // generate Intruders
+            for (int i = 0; i < _amountInvaders[(int)Difficulty]; i++)
+            {
+                // TODO: Randomize invaders and type of invaders relevant to the chosen difficulty
+            }
+
+            // generate Levels
+            for (int i = 0; i < _amountLevels[(int)Difficulty]; i++)
+            {
+                // TODO: generate levels relevant to the difficulty and tower placements
+            }
+
+        }
+        
         public void StartGame()
         {
+            // TODO: For loop through all levels relevant to the chosen difficulty
+
+            // TODO: Try catch block to check for game over
+
         }
 
         public void SaveHighscore()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
-            string filePath = Path.Combine(currentDirectory, HighscoreFileName);
+            string filePath = Path.Combine(currentDirectory, _highscoreFileName);
 
             Highscores.Sort();
             using (StreamWriter writer = new StreamWriter(filePath))
@@ -217,7 +245,7 @@ namespace TreehouseDefense
         {
             List<Highscore> loadedHighscores = new List<Highscore>();
             string currentDirectory = Directory.GetCurrentDirectory();
-            string filePath = Path.Combine(currentDirectory, HighscoreFileName);
+            string filePath = Path.Combine(currentDirectory, _highscoreFileName);
 
             if (!File.Exists(filePath))
                 return;

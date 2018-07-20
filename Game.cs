@@ -12,11 +12,7 @@ namespace TreehouseDefense
             gameController.PrintWelcome();
             gameController.SetDifficulty();
 
-            // TODO: Generate Invaders based on map size and difficulty
-
-            // TODO: Ask player to place tower
-            // Show list of available towers based on difficulty and level
-
+ 
             Map map = new Map(8, 5);
             try
             {
