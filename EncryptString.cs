@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ *  Encryption Class written by CraigTP
+ *  https://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp/10177020#10177020
+ */
+
+using System;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
