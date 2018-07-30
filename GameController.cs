@@ -33,6 +33,7 @@ namespace TreehouseDefense
         public Level[] Levels { get; set; }
         public List<Highscore> Highscores { get; set; }
         public int CurrentScore { get; set; }
+        public int CurrentLevel { get; set; } = 1;
 
         public void PrintWelcome()
         {
@@ -183,16 +184,71 @@ namespace TreehouseDefense
 
         public void AskToPlaceTowers()
         {
-            // TODO: Print MonsterPath and available tower spots
-            PrintMapToScreen();
+            int towerPoints = _amountTowers[(int)Difficulty] * CurrentLevel;
+            bool error = false;
 
-            // TODO: Show list of available towers and amount to place
-            ShowAvailableTowers();
+            while(towerPoints > 0)
+            {
+                PrintMapToScreen();
 
-            // TODO: Ask player to choose type of tower and point to place
+                if(error)
+                {
+                    Console.WriteLine("!!Error while analyzing coordinates!!");
+                    error = false;
+                }
 
+                Console.WriteLine("Please choose a tower to place:");
+                Console.WriteLine("1 - Basic Tower ({0})", (towerPoints / 1));
+                Console.WriteLine("2 - Advanced Tower ({0})", (towerPoints / 2));
+                Console.WriteLine("3 - Precise Tower ({0})", (towerPoints / 2));
+                Console.WriteLine("4 - Power Tower ({0})", (towerPoints / 4));
+                Console.Write(": ");
+                var input = Console.ReadKey();
+
+                Console.WriteLine();
+                Console.WriteLine("Enter the coordinates (x,y) to place the tower");
+                Console.WriteLine("You can place towers beside the path (X)");
+                Console.Write(": ");
+                string inputCoordinates = Console.ReadLine();
+                try
+                {
+                    string[] placedTower = inputCoordinates.Split(',');
+                    int x = Int32.Parse(placedTower[0]);
+                    int y = Int32.Parse(placedTower[1]);
+
+                    Towers = new List<Tower>();
+                    if (input.Key == ConsoleKey.D1)
+                    {
+                        Towers.Add(new Tower(new MapLocation(x, y, GameMap)));
+                        towerPoints -= 1;
+                        Console.WriteLine(Towers[0].IsOnMap(new MapLocation(x, y, GameMap)));
+                        Console.ReadKey();
+                    }
+                    else if (input.Key == ConsoleKey.D2)
+                    {
+                        Towers.Add(new AdvancedTower(new MapLocation(x, y, GameMap)));
+                        towerPoints -= 2;
+                    }
+                    else if (input.Key == ConsoleKey.D3)
+                    {
+                        Towers.Add(new PreciseTower(new MapLocation(x, y, GameMap)));
+                        towerPoints -= 2;
+                    }
+                    else if (input.Key == ConsoleKey.D4)
+                    {
+                        Towers.Add(new PowerTower(new MapLocation(x, y, GameMap)));
+                        towerPoints -= 4;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    Console.ReadKey();
+                    error = true;
+                    continue;
+                }
+            }
             Console.ReadKey();
-
             GenerateInvaderAndLevels();
         }
 
@@ -241,25 +297,6 @@ namespace TreehouseDefense
                 Console.WriteLine();
             }
             Console.WriteLine();
-        }
-
-        private void ShowAvailableTowers()
-        {
-            Console.WriteLine("Please choose a tower to place:");
-            Console.WriteLine("1 - Basic Tower ({0})", (_amountTowers[(int)Difficulty] / 1));
-            Console.WriteLine("2 - Advanced Tower ({0})", (_amountTowers[(int)Difficulty] / 2));
-            Console.WriteLine("3 - Precise Tower ({0})", (_amountTowers[(int)Difficulty] / 2));
-            Console.WriteLine("4 - Power Tower ({0})", (_amountTowers[(int)Difficulty] / 4));
-            Console.Write(": ");
-            var input = Console.ReadKey();
-            Console.WriteLine();
-            Console.WriteLine("Enter the coordinates (x,y) to place the tower");
-            Console.WriteLine("You can place towers beside the path (X)");
-            Console.Write(": ");
-            string inputCoordinates = Console.ReadLine();
-
-            // Add chosen tower to GameController
-            
         }
 
         private void GenerateInvaderAndLevels()
