@@ -184,6 +184,10 @@ namespace TreehouseDefense
 
         public void AskToPlaceTowers()
         {
+            /* Finalize and refactor once PrintMapToScreen() has been re-written/fixed
+             * 
+             */
+
             int towerPoints = _amountTowers[(int)Difficulty] * CurrentLevel;
             bool error = false;
 
@@ -255,6 +259,10 @@ namespace TreehouseDefense
         private void PrintMapToScreen()
         {
             Console.Clear();
+
+            /*  This is buggy as it produces a map that begins with 1,1 
+             *  that is not in line with the actual GameMap
+             *  Procedure needs to be re-written */
             int x = 0;
             for (int y = 0; y < GameMap.Height + 1; y++)
             {
