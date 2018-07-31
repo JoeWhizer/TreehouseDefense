@@ -29,7 +29,7 @@ namespace TreehouseDefense
         public Map GameMap { get; private set; }
         public MonsterPath MapPath { get; private set; }
         public Invader[] Invaders { get; set; }
-        public List<Tower> Towers { get; set; }
+        public List<Tower> Towers { get; set; } = new List<Tower>();
         public Level[] Levels { get; set; }
         public List<Highscore> Highscores { get; set; }
         public int CurrentScore { get; set; }
@@ -220,13 +220,10 @@ namespace TreehouseDefense
                     int x = Int32.Parse(placedTower[0]);
                     int y = Int32.Parse(placedTower[1]);
 
-                    Towers = new List<Tower>();
                     if (input.Key == ConsoleKey.D1)
                     {
                         Towers.Add(new Tower(new MapLocation(x, y, GameMap)));
                         towerPoints -= 1;
-                        Console.WriteLine(Towers[0].IsOnMap(new MapLocation(x, y, GameMap)));
-                        Console.ReadKey();
                     }
                     else if (input.Key == ConsoleKey.D2)
                     {
@@ -243,6 +240,8 @@ namespace TreehouseDefense
                         Towers.Add(new PowerTower(new MapLocation(x, y, GameMap)));
                         towerPoints -= 4;
                     }
+                    else
+                        throw new Exception();
                 }
                 catch (Exception ex)
                 {
@@ -281,8 +280,7 @@ namespace TreehouseDefense
                         Console.Write(" y");
                         continue;
                     }
-
-                    if (x < 14 && x > 3 && y == 0)
+                    else if (x < 14 && x > 3 && y == 0)
                     {
                         if (x == 4)
                             Console.Write(" " + (x - 4));
@@ -296,8 +294,7 @@ namespace TreehouseDefense
                         Console.Write(" " + (x - 4));
                         continue;
                     }
-
-                    if (x > 3 && y > 1)
+                    else if (x > 3 && y > 1)
                     {
                         // generate actual map points
                         if (MapPath.IsOnPath(new MapLocation(x - 4, y - 2, GameMap)))
@@ -306,19 +303,20 @@ namespace TreehouseDefense
                         }
                         else
                         {
-                            if (Towers != null)
+                            if (Towers.Count > 0)
                             {
-                                for (int t = 0; t < Towers.Count; t++)
+                                bool foundTower = false;
+                                foreach (var tower in Towers)
                                 {
-                                    if (Towers[t].IsOnMap(new MapLocation(x - 4, y - 2, GameMap)))
+                                    if (tower.IsOnMap(new MapLocation(x - 4, y - 2, GameMap)))
                                     {
-                                        if (x == 4) Console.Write(" T  "); else Console.Write("T  ");
+                                        Console.Write("T  ");
+                                        foundTower = true;
                                     }
-                                    else
-                                    {
-                                        if (x == 4) Console.Write(" o  "); else Console.Write("o  ");
-                                        continue;
-                                    }
+                                }
+                                if (!foundTower)
+                                {
+                                    Console.Write("o  ");
                                 }
                             }
                             else
