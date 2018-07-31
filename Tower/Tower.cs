@@ -46,7 +46,7 @@ namespace TreehouseDefense
 
         public bool IsOnMap(MapLocation location)
         {
-            return (location == _location);
+            return (location.Equals(_location));
         }
 
     }

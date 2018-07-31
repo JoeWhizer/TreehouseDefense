@@ -260,46 +260,70 @@ namespace TreehouseDefense
         {
             Console.Clear();
 
-            /*  This is buggy as it produces a map that begins with 1,1 
-             *  that is not in line with the actual GameMap
-             *  Procedure needs to be re-written */
+            int xWidth = GameMap.Width + 4;
+            int yHeight = GameMap.Height + 2;
             int x = 0;
-            for (int y = 0; y < GameMap.Height + 1; y++)
-            {
-                // y-coordinates
-                if (y < 10) Console.Write(" " + y + "  "); else Console.Write(y + "  ");
 
-                for (x = 0; x < GameMap.Width; x++)
+            // Y-Axis
+            for (int y = 0; y < yHeight; y++)
+            {
+                if (x == 0 && y == 0) Console.Write("  x");
+                if (y > 1 && y < 12)
+                    Console.Write(" " + (y - 2) + "  ");
+                else if (y >= 12)
+                    Console.Write((y - 2) + "  ");
+
+                // X-Axis
+                for (x = 0; x < xWidth; x++)
                 {
-                    if (y == 0)
-                    {   // x-coordinates
-                        if (x < 9 && x > 0) Console.Write(" " + (x + 1) + "  "); else Console.Write((x + 1) + "  ");
+                    if (x == 1 && y == 1)
+                    {
+                        Console.Write(" y");
                         continue;
                     }
 
-                    if (MapPath.IsOnPath(new MapLocation(x, y - 1, GameMap)))
+                    if (x < 14 && x > 3 && y == 0)
                     {
-                        Console.Write("X   ");
+                        if (x == 4)
+                            Console.Write(" " + (x - 4));
+                        else
+                            Console.Write("  " + (x - 4));
+
+                        continue;
                     }
-                    else 
+                    else if (x >= 14 && y == 0)
                     {
-                        if (Towers != null)
+                        Console.Write(" " + (x - 4));
+                        continue;
+                    }
+
+                    if (x > 3 && y > 1)
+                    {
+                        // generate actual map points
+                        if (MapPath.IsOnPath(new MapLocation(x - 4, y - 2, GameMap)))
                         {
-                            for (int t = 0; t < Towers.Count; t++)
-                            {
-                                if(Towers[t].IsOnMap(new MapLocation(x, y -1, GameMap)))
-                                {
-                                    Console.Write("T   ");
-                                }
-                                else
-                                {
-                                    Console.Write("o   ");
-                                    continue;
-                                }
-                            }
+                            Console.Write("X  ");
                         }
                         else
-                            Console.Write("o   ");
+                        {
+                            if (Towers != null)
+                            {
+                                for (int t = 0; t < Towers.Count; t++)
+                                {
+                                    if (Towers[t].IsOnMap(new MapLocation(x - 4, y - 2, GameMap)))
+                                    {
+                                        if (x == 4) Console.Write(" T  "); else Console.Write("T  ");
+                                    }
+                                    else
+                                    {
+                                        if (x == 4) Console.Write(" o  "); else Console.Write("o  ");
+                                        continue;
+                                    }
+                                }
+                            }
+                            else
+                                Console.Write("o  ");
+                        }
                     }
                 }
                 Console.WriteLine();
