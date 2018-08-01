@@ -11,6 +11,7 @@ namespace TreehouseDefense
 
             gameController.StartGame();
                  
+            /*
             Map map = new Map(8, 5);
             try
             {
@@ -62,7 +63,7 @@ namespace TreehouseDefense
             {
                 Console.WriteLine("Unhandled Exception: " + ex);
             }
-
+            */
             Console.ReadKey();
         }
     }

@@ -4,6 +4,7 @@ namespace TreehouseDefense
     {
         private BasicInvader _incarnation1;
         private StrongInvader _incarnation2;
+        public int Score { get; set; } = 5;
 
         public MapLocation Location => _incarnation1.IsNeutralized ? _incarnation2.Location : _incarnation1.Location;
 

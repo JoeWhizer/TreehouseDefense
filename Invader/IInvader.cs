@@ -17,6 +17,7 @@ namespace TreehouseDefense
         bool HasScored { get; }
         
         int Health { get; }
+        int Score { get; }
         
         bool IsNeutralized { get; }
         

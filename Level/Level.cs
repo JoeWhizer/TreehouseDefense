@@ -2,7 +2,7 @@ namespace TreehouseDefense
 {
     class Level
     {
-        private readonly IInvader[] _invaders;
+        public readonly IInvader[] _invaders;
         
         public Tower[] Towers { get; set; }
         

@@ -19,7 +19,7 @@ namespace TreehouseDefense
         static int _screenWidth = 52;                         // Screen width of welcome and highscore screen
         static double _passString = 0.4357654324;             // passPhrase used to encrypt highscore file
         static int[] _amountInvaders = { 5, 8, 12, 15, 25 };  // Amount of invaders relevant to the chosen difficulty
-        static int[] _amountTowers = { 2, 3, 4, 5, 8 };      // Amount of towers relevant to the chosen difficulty
+        static int[] _amountTowers = { 2, 3, 4, 5, 8 };       // Amount of towers relevant to the chosen difficulty
         static int[] _amountLevels = { 5, 8, 12, 15, 25 };    // Amount of levels relevant to the chosen difficulty
         static string _highscoreFileName = "Highscore.dat";   // Filename in game directory to save highscore
         
@@ -51,15 +51,26 @@ namespace TreehouseDefense
             {
                 // Run all levels, calculate score and increase towerpoints
                 // After each level player can place more towers
-                for (int i = 0; i < (Levels.Count - 1); i++)
+                foreach (var level in Levels)
                 {
-                    // TODO: For loop through all levels relevant to the chosen difficulty
+                    level.Towers = Towers.ToArray();
+                    if (level.Play())
+                    {
+                        foreach (var invader in level._invaders)
+                        {
+                            CurrentScore += invader.Score;
+                        }
+                        Console.WriteLine("Level {0} completed, you earned {1} points!", CurrentLevel, CurrentScore);
+                        CurrentLevel++;
+                        continue;
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // GameOver();
                 // CheckForHighscore();
+                Console.WriteLine(ex);
                 SaveHighscore();
             }
 
