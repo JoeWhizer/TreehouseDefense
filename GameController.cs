@@ -40,7 +40,32 @@ namespace TreehouseDefense
             LoadHighscore();
         }
 
-        public void PrintWelcome()
+        public void StartGame()
+        {
+            PrintWelcome();                 // Print Welcome-Screen and Highscore
+            SetDifficulty();                // Set difficulty and generate map & path
+            AskToPlaceTowers();             // Ask player to place tower
+            GenerateInvaderAndLevels();     // Generate all levels with their relative invaders
+
+            try
+            {
+                // Run all levels, calculate score and increase towerpoints
+                // After each level player can place more towers
+                for (int i = 0; i < (Levels.Count - 1); i++)
+                {
+                    // TODO: For loop through all levels relevant to the chosen difficulty
+                }
+            }
+            catch (Exception)
+            {
+                // GameOver();
+                // CheckForHighscore();
+                SaveHighscore();
+            }
+
+        }
+
+        private void PrintWelcome()
         {
             Console.WriteLine("****************************************************");
             Console.WriteLine("**          Welcome to TreehouseDefense           **");
@@ -75,7 +100,7 @@ namespace TreehouseDefense
             }
         }
 
-        public void SetDifficulty()
+        private void SetDifficulty()
         {
             bool correctKeyPressed = false;
             bool error = false;
@@ -184,7 +209,7 @@ namespace TreehouseDefense
             MapPath = new MonsterPath(mapLocs);
         }
 
-        public void AskToPlaceTowers()
+        private void AskToPlaceTowers()
         {
             /* Finalize and refactor once PrintMapToScreen() has been re-written/fixed
              * 
@@ -254,7 +279,6 @@ namespace TreehouseDefense
                 }
             }
             PrintMapToScreen();
-            GenerateInvaderAndLevels();
         }
 
         private void PrintMapToScreen()
@@ -380,7 +404,7 @@ namespace TreehouseDefense
                 case Difficulty.Hard:
                     if(rng <= 0.2)
                     {
-                        if (rng <= 0.6)
+                        if (rng <= 0.06)
                             xInvader = new ShieldedInvader(MapPath);
                         else if (rng <= 0.125)
                             xInvader = new StrongInvader(MapPath);
@@ -393,9 +417,9 @@ namespace TreehouseDefense
                 case Difficulty.Brutal:
                     if (rng <= 0.2)
                     {
-                        if (rng <= 0.4)
+                        if (rng <= 0.04)
                             xInvader = new ResurrectingInvader(MapPath);
-                        else if (rng <= 0.9)
+                        else if (rng <= 0.09)
                             xInvader = new ShieldedInvader(MapPath);
                         else if (rng <= 0.14)
                             xInvader = new StrongInvader(MapPath);
@@ -411,20 +435,7 @@ namespace TreehouseDefense
             return xInvader;
         }
 
-        public void StartGame()
-        {
-            PrintWelcome();
-            SetDifficulty();
-            AskToPlaceTowers();
-
-            // TODO: For loop through all levels relevant to the chosen difficulty
-
-            // TODO: Try catch block to check for game over
-
-            SaveHighscore();
-        }
-
-        public void SaveHighscore()
+        private void SaveHighscore()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             string filePath = Path.Combine(currentDirectory, _highscoreFileName);
@@ -450,7 +461,7 @@ namespace TreehouseDefense
             }
         }
 
-        public void LoadHighscore()
+        private void LoadHighscore()
         {
             List<Highscore> loadedHighscores = new List<Highscore>();
             string currentDirectory = Directory.GetCurrentDirectory();
