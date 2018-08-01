@@ -9,10 +9,8 @@ namespace TreehouseDefense
         {
             GameController gameController = new GameController();
 
-            gameController.PrintWelcome();
-            gameController.SetDifficulty();
-            gameController.AskToPlaceTowers();
- 
+            gameController.StartGame();
+                 
             Map map = new Map(8, 5);
             try
             {

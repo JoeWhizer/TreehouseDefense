@@ -35,6 +35,11 @@ namespace TreehouseDefense
         public int CurrentScore { get; set; }
         public int CurrentLevel { get; set; } = 1;
 
+        public GameController()
+        {
+            LoadHighscore();
+        }
+
         public void PrintWelcome()
         {
             Console.WriteLine("****************************************************");
@@ -54,9 +59,6 @@ namespace TreehouseDefense
 
         private void PrintHighscore()
         {
-            LoadHighscore();
-            
-
             if(Highscores.Count > 0)
             {
                 foreach (var highscore in Highscores)
@@ -251,7 +253,7 @@ namespace TreehouseDefense
                     continue;
                 }
             }
-            Console.ReadKey();
+            PrintMapToScreen();
             GenerateInvaderAndLevels();
         }
 
@@ -411,10 +413,15 @@ namespace TreehouseDefense
 
         public void StartGame()
         {
+            PrintWelcome();
+            SetDifficulty();
+            AskToPlaceTowers();
+
             // TODO: For loop through all levels relevant to the chosen difficulty
 
             // TODO: Try catch block to check for game over
 
+            SaveHighscore();
         }
 
         public void SaveHighscore()
