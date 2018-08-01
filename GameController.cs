@@ -334,7 +334,6 @@ namespace TreehouseDefense
             int nInvaders = _amountInvaders[(int)Difficulty];
             int nLevels = _amountLevels[(int)Difficulty];
 
-            // TODO: generate levels relevant to the difficulty and tower placements
             // generate Levels
             for (int i = 0; i < nLevels; i++)
             {
@@ -342,19 +341,72 @@ namespace TreehouseDefense
                 Invaders = new IInvader[nInvaders + i];
                 for (int j = 0; j < (nInvaders + i); j++)
                 {
-                    // TODO: Randomize invaders and type of invaders relevant to the chosen difficulty
-                    Invaders[j] = GetRandomInvader(i +1);
+                    Invaders[j] = GetRandomInvader();
                 }
                 Level level = new Level(Invaders);
                 Levels.Add(level);
             }
         }
         
-        private IInvader GetRandomInvader(int level)
+        private IInvader GetRandomInvader()
         {
+            IInvader xInvader;
+            double rng = Random.NextDouble();
 
-
-            return null;
+            switch (Difficulty)
+            {
+                case Difficulty.VeryEasy:
+                    xInvader = new BasicInvader(MapPath);
+                    break;
+                case Difficulty.Easy:
+                    if(rng <= 0.2)
+                        xInvader = new FastInvader(MapPath);
+                    else
+                        xInvader = new BasicInvader(MapPath);
+                    break;
+                case Difficulty.Medium:
+                    if(rng <= 0.2)
+                    {
+                        if (rng <= 0.09)
+                            xInvader = new StrongInvader(MapPath);
+                        else
+                            xInvader = new FastInvader(MapPath);
+                    }
+                    else
+                        xInvader = new BasicInvader(MapPath);
+                    break;
+                case Difficulty.Hard:
+                    if(rng <= 0.2)
+                    {
+                        if (rng <= 0.6)
+                            xInvader = new ShieldedInvader(MapPath);
+                        else if (rng <= 0.125)
+                            xInvader = new StrongInvader(MapPath);
+                        else
+                            xInvader = new FastInvader(MapPath);
+                    }
+                    else
+                        xInvader = new BasicInvader(MapPath);
+                    break;
+                case Difficulty.Brutal:
+                    if (rng <= 0.2)
+                    {
+                        if (rng <= 0.4)
+                            xInvader = new ResurrectingInvader(MapPath);
+                        else if (rng <= 0.9)
+                            xInvader = new ShieldedInvader(MapPath);
+                        else if (rng <= 0.14)
+                            xInvader = new StrongInvader(MapPath);
+                        else
+                            xInvader = new FastInvader(MapPath);
+                    }
+                    else
+                        xInvader = new BasicInvader(MapPath); break;
+                default:
+                    xInvader = new BasicInvader(MapPath);
+                    break;
+            }
+            return xInvader;
         }
 
         public void StartGame()
