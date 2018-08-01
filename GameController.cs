@@ -18,8 +18,8 @@ namespace TreehouseDefense
         // Object constants
         static int _screenWidth = 52;                         // Screen width of welcome and highscore screen
         static double _passString = 0.4357654324;             // passPhrase used to encrypt highscore file
-        static int[] _amountInvaders = { 5, 8, 12, 15, 25 };  // Amount of invaders relevant to the chosen difficulty
-        static int[] _amountTowers = { 2, 3, 4, 5, 8 };       // Amount of towers relevant to the chosen difficulty
+        static int[] _amountInvaders = { 4, 6, 8, 12, 15 };   // Amount of invaders relevant to the chosen difficulty
+        static int[] _amountTowers = { 4, 6, 8, 12, 15 };     // Amount of towers relevant to the chosen difficulty
         static int[] _amountLevels = { 5, 8, 12, 15, 25 };    // Amount of levels relevant to the chosen difficulty
         static string _highscoreFileName = "Highscore.dat";   // Filename in game directory to save highscore
         
@@ -60,9 +60,25 @@ namespace TreehouseDefense
                         {
                             CurrentScore += invader.Score;
                         }
+                        CurrentScore += 5;
                         Console.WriteLine("Level {0} completed, you earned {1} points!", CurrentLevel, CurrentScore);
                         CurrentLevel++;
                         continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Game Over - You have lost!");
+                        Console.WriteLine("You have reached level {0}", CurrentLevel);
+                        Console.Write("Play again? (y/n): ");
+                        if(Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            StartGame();
+                        }
+                        else
+                        {
+                            throw new Exception("Game Over!");
+                        }
                     }
                 }
             }
@@ -78,6 +94,7 @@ namespace TreehouseDefense
 
         private void PrintWelcome()
         {
+            Console.Clear();
             Console.WriteLine("****************************************************");
             Console.WriteLine("**          Welcome to TreehouseDefense           **");
             Console.WriteLine("****************************************************");
