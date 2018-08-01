@@ -8,7 +8,7 @@ namespace TreehouseDefense
     {
         VeryEasy, // Mapsize: 10,5  - Intruders: 5-10  - Towers 2-3  - Levels 5   - Basic only
         Easy,     // Mapsize: 12,8  - Intruders: 8-16  - Towers 3-4  - Levels 8   - + Advanced Tower (2)
-        Medium,   // Mapsize: 14,10 - Intruders: 12-23 - Towers 4-6  - Levels 11  - + Precise Tower (2)
+        Medium,   // Mapsize: 14,10 - Intruders: 12-24 - Towers 4-6  - Levels 12  - + Precise Tower (2)
         Hard,     // Mapsize: 16,12 - Intruders: 15-30 - Towers 6-8  - Levels 15  - + Power Tower (4)
         Brutal    // Mapsize: 20,18 - Intruders: 25-50 - Towers 8-12 - Levels 25
     }
@@ -20,7 +20,7 @@ namespace TreehouseDefense
         static double _passString = 0.4357654324;             // passPhrase used to encrypt highscore file
         static int[] _amountInvaders = { 5, 8, 12, 15, 25 };  // Amount of invaders relevant to the chosen difficulty
         static int[] _amountTowers = { 2, 3, 4, 5, 8 };      // Amount of towers relevant to the chosen difficulty
-        static int[] _amountLevels = { 5, 8, 11, 15, 25 };    // Amount of levels relevant to the chosen difficulty
+        static int[] _amountLevels = { 5, 8, 12, 15, 25 };    // Amount of levels relevant to the chosen difficulty
         static string _highscoreFileName = "Highscore.dat";   // Filename in game directory to save highscore
         
         // Properties
@@ -28,9 +28,9 @@ namespace TreehouseDefense
         public Difficulty Difficulty { get; private set; } = 0;
         public Map GameMap { get; private set; }
         public MonsterPath MapPath { get; private set; }
-        public Invader[] Invaders { get; set; }
+        public IInvader[] Invaders { get; set; }
         public List<Tower> Towers { get; set; } = new List<Tower>();
-        public Level[] Levels { get; set; }
+        public List<Level> Levels { get; set; } = new List<Level>();
         public List<Highscore> Highscores { get; set; }
         public int CurrentScore { get; set; }
         public int CurrentLevel { get; set; } = 1;
@@ -331,20 +331,32 @@ namespace TreehouseDefense
 
         private void GenerateInvaderAndLevels()
         {
-            // generate Intruders
-            for (int i = 0; i < _amountInvaders[(int)Difficulty]; i++)
-            {
-                // TODO: Randomize invaders and type of invaders relevant to the chosen difficulty
-            }
+            int nInvaders = _amountInvaders[(int)Difficulty];
+            int nLevels = _amountLevels[(int)Difficulty];
 
+            // TODO: generate levels relevant to the difficulty and tower placements
             // generate Levels
-            for (int i = 0; i < _amountLevels[(int)Difficulty]; i++)
+            for (int i = 0; i < nLevels; i++)
             {
-                // TODO: generate levels relevant to the difficulty and tower placements
+                // generate Invaders
+                Invaders = new IInvader[nInvaders + i];
+                for (int j = 0; j < (nInvaders + i); j++)
+                {
+                    // TODO: Randomize invaders and type of invaders relevant to the chosen difficulty
+                    Invaders[j] = GetRandomInvader(i +1);
+                }
+                Level level = new Level(Invaders);
+                Levels.Add(level);
             }
-
         }
         
+        private IInvader GetRandomInvader(int level)
+        {
+
+
+            return null;
+        }
+
         public void StartGame()
         {
             // TODO: For loop through all levels relevant to the chosen difficulty
