@@ -42,6 +42,11 @@ namespace TreehouseDefense
 
         public void StartGame()
         {
+            CurrentLevel = 1;
+            CurrentScore = 0;
+            Towers.Clear();
+            Levels.Clear();
+
             PrintWelcome();                 // Print Welcome-Screen and Highscore
             SetDifficulty();                // Set difficulty and generate map & path
             AskToPlaceTowers();             // Ask player to place tower
