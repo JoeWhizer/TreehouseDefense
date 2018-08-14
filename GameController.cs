@@ -22,7 +22,7 @@ namespace TreehouseDefense
         static int[] _amountTowers = { 4, 6, 8, 12, 15 };     // Amount of towers relevant to the chosen difficulty
         static int[] _amountLevels = { 5, 8, 12, 15, 25 };    // Amount of levels relevant to the chosen difficulty
         static string _highscoreFileName = "Highscore.dat";   // Filename in game directory to save highscore
-        
+
         // Properties
         public bool IsGameRunning { get; set; } = false;
         public Difficulty Difficulty { get; private set; } = 0;
@@ -76,7 +76,7 @@ namespace TreehouseDefense
                         Console.WriteLine("Game Over - You have lost!");
                         Console.WriteLine("You have reached level {0}", CurrentLevel);
                         Console.Write("Play again? (y/n): ");
-                        if(Console.ReadKey().Key == ConsoleKey.Y)
+                        if (Console.ReadKey().Key == ConsoleKey.Y)
                         {
                             StartGame();
                         }
@@ -117,7 +117,7 @@ namespace TreehouseDefense
 
         private void PrintHighscore()
         {
-            if(Highscores.Count > 0)
+            if (Highscores.Count > 0)
             {
                 foreach (var highscore in Highscores)
                 {
@@ -251,11 +251,11 @@ namespace TreehouseDefense
             int towerPoints = _amountTowers[(int)Difficulty] * CurrentLevel;
             bool error = false;
 
-            while(towerPoints > 0)
+            while (towerPoints > 0)
             {
                 PrintMapToScreen();
 
-                if(error)
+                if (error)
                 {
                     Console.WriteLine("!!Error while analyzing coordinates!!");
                     error = false;
@@ -406,7 +406,7 @@ namespace TreehouseDefense
                 Levels.Add(level);
             }
         }
-        
+
         private IInvader GetRandomInvader()
         {
             IInvader xInvader;
@@ -418,13 +418,13 @@ namespace TreehouseDefense
                     xInvader = new BasicInvader(MapPath);
                     break;
                 case Difficulty.Easy:
-                    if(rng <= 0.2)
+                    if (rng <= 0.2)
                         xInvader = new FastInvader(MapPath);
                     else
                         xInvader = new BasicInvader(MapPath);
                     break;
                 case Difficulty.Medium:
-                    if(rng <= 0.2)
+                    if (rng <= 0.2)
                     {
                         if (rng <= 0.09)
                             xInvader = new StrongInvader(MapPath);
@@ -435,7 +435,7 @@ namespace TreehouseDefense
                         xInvader = new BasicInvader(MapPath);
                     break;
                 case Difficulty.Hard:
-                    if(rng <= 0.2)
+                    if (rng <= 0.2)
                     {
                         if (rng <= 0.06)
                             xInvader = new ShieldedInvader(MapPath);

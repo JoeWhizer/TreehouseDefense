@@ -9,10 +9,10 @@ namespace TreehouseDefense
         public ShieldedInvader(MonsterPath path) : base(path)
         {
         }
-      
+
         public override void DecreaseHealth(int factor)
         {
-            if(Random.NextDouble() < .5)
+            if (Random.NextDouble() < .5)
             {
                 base.DecreaseHealth(factor);
             }

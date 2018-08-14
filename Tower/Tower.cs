@@ -10,27 +10,27 @@ namespace TreehouseDefense
         protected virtual int Cost { get; } = 1;
 
         private readonly MapLocation _location;
-        
+
         public Tower(MapLocation location)
         {
             _location = location;
         }
-        
+
         private bool IsSuccessfulShot()
         {
             return Random.NextDouble() < Accuracy;
         }
-        
+
         public void FireOnInvaders(IInvader[] invaders)
         {
-            foreach(IInvader invader in invaders)
+            foreach (IInvader invader in invaders)
             {
-                if(invader.IsActive && _location.InRangeOf(invader.Location, Range))
+                if (invader.IsActive && _location.InRangeOf(invader.Location, Range))
                 {
-                    if(IsSuccessfulShot())
+                    if (IsSuccessfulShot())
                     {
                         invader.DecreaseHealth(Power);
-                        if(invader.IsNeutralized)
+                        if (invader.IsNeutralized)
                         {
                             Console.WriteLine("Neutralized an invader at " + invader.Location + "!");
                         }

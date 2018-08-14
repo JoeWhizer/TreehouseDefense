@@ -18,11 +18,11 @@ namespace TreehouseDefense
             {
                 Console.WriteLine(ex.Message);
             }
-            catch(TreehouseDefenseException)
+            catch (TreehouseDefenseException)
             {
                 Console.WriteLine("Unhandled TreehouseDefenseException");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Unhandled Exception: " + ex);
             }

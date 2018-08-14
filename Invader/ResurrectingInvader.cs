@@ -9,11 +9,11 @@ namespace TreehouseDefense
         public MapLocation Location => _incarnation1.IsNeutralized ? _incarnation2.Location : _incarnation1.Location;
 
         public bool HasScored => _incarnation1.HasScored || _incarnation2.HasScored;
-        
+
         public int Health => _incarnation1.IsNeutralized ? _incarnation2.Health : _incarnation1.Health;
-        
+
         public bool IsNeutralized => _incarnation1.IsNeutralized && _incarnation2.IsNeutralized;
-        
+
         public bool IsActive => !(IsNeutralized || HasScored);
 
         public ResurrectingInvader(MonsterPath path)
@@ -30,7 +30,7 @@ namespace TreehouseDefense
 
         public void DecreaseHealth(int factor)
         {
-            if(!_incarnation1.IsNeutralized)
+            if (!_incarnation1.IsNeutralized)
             {
                 _incarnation1.DecreaseHealth(factor);
             }

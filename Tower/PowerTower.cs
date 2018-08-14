@@ -7,6 +7,6 @@ namespace TreehouseDefense
         protected override double Accuracy { get; } = .80;
         protected override int Cost { get; } = 4;
 
-        public PowerTower(MapLocation location) : base(location) {}
+        public PowerTower(MapLocation location) : base(location) { }
     }
 }

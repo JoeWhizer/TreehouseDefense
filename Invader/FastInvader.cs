@@ -6,6 +6,6 @@ namespace TreehouseDefense
         public override int Score { get; protected set; } = 1;
         protected override int StepSize { get; } = 2;
 
-        public FastInvader(MonsterPath path) : base(path) {}
+        public FastInvader(MonsterPath path) : base(path) { }
     }
 }
